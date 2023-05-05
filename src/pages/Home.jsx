@@ -12,7 +12,7 @@ const Home = () => {
             .get('http://localhost:3000/quizzes')
             .then((res) => setQuizzes(res.data))
             .catch((err) => console.log(err));
-    }, [quizzes]);
+    }, []);
 
     {
         console.log('quizzes', quizzes);

@@ -1,11 +1,18 @@
 import axios from 'axios';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { QuizContext } from '../context/QuizContext';
 
 const Quiz = ({ quiz }) => {
+    const { setQuizzes } = useContext(QuizContext);
     const handleDeleteQuiz = (id) => {
         axios
             .delete(`http://localhost:3000/quizzes/${id}`)
             .then((res) => {
                 console.log('Deleted sucessfully');
+                setQuizzes((prevQuiz) =>
+                    prevQuiz.filter((quiz) => quiz.id !== id)
+                );
             })
             .catch((err) => console.log(err));
     };
