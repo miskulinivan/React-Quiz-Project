@@ -1,8 +1,10 @@
 import { createContext, useState } from 'react';
 export const QuizContext = createContext();
 export const QuizProvider = ({ children }) => {
-    const [test, setTest] = useState('jabuka');
+    const [quizzes, setQuizzes] = useState([]);
     return (
-        <QuizContext.Provider value={{ test }}>{children}</QuizContext.Provider>
+        <QuizContext.Provider value={{ quizzes, setQuizzes }}>
+            {children}
+        </QuizContext.Provider>
     );
 };
