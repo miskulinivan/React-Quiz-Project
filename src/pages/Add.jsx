@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Add = () => {
     const [quiz, setQuiz] = useState({
@@ -127,6 +127,15 @@ const Add = () => {
                     </button>
                 </div>
             </form>
+            <div className='flex justify-center'>
+                <Link
+                    className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
+'
+                    to='/'
+                >
+                    Home
+                </Link>
+            </div>
         </div>
     );
 };
