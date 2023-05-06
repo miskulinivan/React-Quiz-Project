@@ -27,7 +27,7 @@
         {
           "id": 5,
           "question": "What is the name of the largest planet?",
-          "answer": "Jupiter"
+          "answer": "Jupiterrrrrrr"
         }
       ]
     },
@@ -75,28 +75,12 @@
     },
     {
       "id": 4,
-      "name": "quizname",
-      "questions": [
-        {
-          "id": 1,
-          "question": "question1",
-          "answer": "question2"
-        },
-        {
-          "id": 2,
-          "question": "111",
-          "answer": "111"
-        }
-      ]
-    },
-    {
-      "id": 5,
       "name": "test",
       "questions": [
         {
           "id": 1,
-          "question": "test",
-          "answer": "test"
+          "question": "question1",
+          "answer": "answer1"
         }
       ]
     }
