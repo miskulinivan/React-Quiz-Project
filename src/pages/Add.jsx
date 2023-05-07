@@ -54,10 +54,10 @@ const Add = () => {
     };
 
     return (
-        <div className='mx-auto max-w-md'>
-            <h1 className='text-2xl font-bold mb-4'>Add a new quiz</h1>
+        <div className='mx-auto max-w-md w-11/12'>
+            <h1 className='text-2xl font-bold mb-4 p-4'>Add a new quiz</h1>
             <form onSubmit={handleSubmit}>
-                <div className='mb-4'>
+                <div className='mb-4 p-4'>
                     <label
                         htmlFor='name'
                         className='block text-gray-700 font-bold mb-2'
@@ -75,41 +75,46 @@ const Add = () => {
                         /*  required */
                     />
                 </div>
-                <div className='mb-4'>
-                    <label
-                        htmlFor='question'
-                        className='block text-gray-700 font-bold mb-2'
-                    >
-                        Add a question
-                    </label>
-                    <input
-                        type='text'
-                        id='question'
-                        value={quiz.questionText}
-                        onChange={(e) =>
-                            setQuiz({ ...quiz, questionText: e.target.value })
-                        }
-                        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                        /*  required */
-                    />
-                </div>
-                <div className='mb-4'>
-                    <label
-                        htmlFor='answer'
-                        className='block text-gray-700 font-bold mb-2'
-                    >
-                        Answer
-                    </label>
-                    <input
-                        type='text'
-                        id='answer'
-                        value={quiz.answerText}
-                        onChange={(e) =>
-                            setQuiz({ ...quiz, answerText: e.target.value })
-                        }
-                        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                        /*  required */
-                    />
+                <div className='border-4 rounded-xl border-gray-700 p-4 mb-4 '>
+                    <div className='mb-4 '>
+                        <label
+                            htmlFor='question'
+                            className='block text-gray-700 font-bold mb-2'
+                        >
+                            Add a question
+                        </label>
+                        <input
+                            type='text'
+                            id='question'
+                            value={quiz.questionText}
+                            onChange={(e) =>
+                                setQuiz({
+                                    ...quiz,
+                                    questionText: e.target.value,
+                                })
+                            }
+                            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                            /*  required */
+                        />
+                    </div>
+                    <div className='mb-4'>
+                        <label
+                            htmlFor='answer'
+                            className='block text-gray-700 font-bold mb-2'
+                        >
+                            Answer
+                        </label>
+                        <input
+                            type='text'
+                            id='answer'
+                            value={quiz.answerText}
+                            onChange={(e) =>
+                                setQuiz({ ...quiz, answerText: e.target.value })
+                            }
+                            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                            /*  required */
+                        />
+                    </div>
                 </div>
                 <div className='flex justify-between'>
                     <button
@@ -127,7 +132,7 @@ const Add = () => {
                     </button>
                 </div>
             </form>
-            <div className='flex justify-center'>
+            <div className='flex justify-center '>
                 <Link
                     className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
 '

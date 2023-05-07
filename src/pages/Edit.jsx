@@ -61,7 +61,7 @@ const Edit = () => {
                         return (
                             <div
                                 key={question.id}
-                                className='border-4 mb-4 rounded-xl border-gray-700  p-4'
+                                className='border-4 rounded-xl border-gray-700  p-4 mb-4 '
                             >
                                 <div className='mb-4'>
                                     <label
@@ -130,15 +130,14 @@ const Edit = () => {
                             </div>
                         );
                     })}
-
+                </form>
+                <div className='flex justify-center'>
                     <button
                         type='submit'
                         className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
                     >
                         Finish editing
                     </button>
-                </form>
-                <div className='flex justify-center'>
                     <Link
                         className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
 '

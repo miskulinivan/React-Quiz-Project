@@ -27,7 +27,7 @@
         {
           "id": 5,
           "question": "What is the name of the largest planet?",
-          "answer": "Jupiterrrrrrr"
+          "answer": "Jupiter"
         }
       ]
     },
@@ -79,7 +79,7 @@
       "questions": [
         {
           "id": 1,
-          "question": "question1",
+          "question": "qq",
           "answer": "answer1"
         }
       ]
