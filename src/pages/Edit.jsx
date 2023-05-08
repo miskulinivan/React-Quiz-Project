@@ -2,11 +2,12 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { QuizContext } from '../context/QuizContext';
 const Edit = () => {
     const { id } = useParams();
     const [currentQuiz, setCurrentQuiz] = useState({});
     const navigate = useNavigate();
-    /*  const { quizzes } = useContext(QuizContext); */
+    /*   const { quizzes } = useContext(QuizContext); */
 
     useEffect(() => {
         axios
@@ -21,6 +22,7 @@ const Edit = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         axios
             .put(`http://localhost:3000/quizzes/${id}`, currentQuiz)
             .then((res) => {
@@ -130,14 +132,14 @@ const Edit = () => {
                             </div>
                         );
                     })}
-                </form>
-                <div className='flex justify-center'>
                     <button
                         type='submit'
                         className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
                     >
                         Finish editing
                     </button>
+                </form>
+                <div className='flex justify-center'>
                     <Link
                         className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
 '
