@@ -1,22 +1,9 @@
-import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
-import { QuizContext } from '../context/QuizContext';
 import Quizzes from '../components/Quizzes';
 import { useNavigate } from 'react-router-dom';
+
 const Home = () => {
     const navigate = useNavigate();
-    const { quizzes, setQuizzes } = useContext(QuizContext);
 
-    useEffect(() => {
-        axios
-            .get('http://localhost:3000/quizzes')
-            .then((res) => setQuizzes(res.data))
-            .catch((err) => console.log(err));
-    }, []);
-
-    {
-        console.log('quizzes', quizzes);
-    }
     return (
         <div className='max-w-screen-lg w-11/12 my-0 mx-auto text-center mt-10'>
             <h2 className='text-5xl font-bold'>Quiz Maker</h2>

@@ -1,12 +1,7 @@
-import { useContext } from 'react';
-import { QuizContext } from '../context/QuizContext';
 import Quiz from './Quiz';
-
+import { useQuizzes } from '../hooks/useQuizzes';
 const Quizzes = () => {
-    const { quizzes } = useContext(QuizContext);
-    {
-        console.log('quizzes', quizzes);
-    }
+    const { quizzes } = useQuizzes();
     return (
         <div>
             {quizzes.map((quiz) => (
