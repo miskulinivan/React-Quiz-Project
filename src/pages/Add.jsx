@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { QuizContext } from '../context/QuizContext';
 
 const Add = () => {
+    const { reusableQuestions, setReusableQuestions } = useContext(QuizContext);
     const [quiz, setQuiz] = useState({
         id: 0,
         name: '',
@@ -51,8 +53,19 @@ const Add = () => {
             questionText: '',
             answerText: '',
         });
+        setReusableQuestions([
+            ...reusableQuestions,
+            {
+                id: reusableQuestions.length + 1,
+                question: question.question,
+                answer: question.answer,
+            },
+        ]);
     };
 
+    useEffect(() => {
+        console.log('reusable questions', reusableQuestions);
+    }, [reusableQuestions]);
     return (
         <div className='mx-auto max-w-md w-11/12'>
             <h1 className='text-2xl font-bold mb-4 p-4'>Add a new quiz</h1>

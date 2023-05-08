@@ -1,12 +1,14 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { QuizContext } from '../context/QuizContext';
 
 export const useQuizzes = (id = null) => {
     // make the id parameter optional with a default value of null
     const [error, setError] = useState(null);
-    const [currentQuiz, setCurrentQuiz] = useState({});
-    const [quizzes, setQuizzes] = useState([]);
-
+    const [quiz, setQuiz] = useState({});
+    /*  const { setQuizzes } = useContext(QuizContext);
+     */
+    const [allQuizzes, setAllQuizzes] = useState([]);
     useEffect(() => {
         const url = id
             ? `http://localhost:3000/quizzes/${id}`
@@ -16,10 +18,10 @@ export const useQuizzes = (id = null) => {
         axios
             .get(url)
             .then((res) => {
-                id ? setCurrentQuiz(res.data) : setQuizzes(res.data);
+                id ? setQuiz(res.data) : setAllQuizzes(res.data);
             })
             .catch((err) => setError(err));
-    }, [quizzes]); // make the id parameter part of the dependency array
+    }, [allQuizzes]); // make the id parameter part of the dependency array
 
-    return { currentQuiz, error, quizzes };
+    return { quiz, error, allQuizzes };
 };

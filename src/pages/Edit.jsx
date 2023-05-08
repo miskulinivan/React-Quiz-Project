@@ -3,22 +3,16 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { QuizContext } from '../context/QuizContext';
+import { useQuizzes } from '../hooks/useQuizzes';
 const Edit = () => {
     const { id } = useParams();
     const [currentQuiz, setCurrentQuiz] = useState({});
     const navigate = useNavigate();
-    /*   const { quizzes } = useContext(QuizContext); */
+    const { quiz, error } = useQuizzes(id);
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:3000/quizzes/${id}`)
-            .then((res) => setCurrentQuiz(res.data))
-            .catch((err) => console.log(err));
-    }, []);
-
-    useEffect(() => {
-        console.log(currentQuiz);
-    }, [currentQuiz]);
+        setCurrentQuiz(quiz);
+    }, [quiz]);
 
     const handleSubmit = (e) => {
         e.preventDefault();

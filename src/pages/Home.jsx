@@ -1,9 +1,11 @@
+import { useContext } from 'react';
+import { QuizContext } from '../context/QuizContext';
 import Quizzes from '../components/Quizzes';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const navigate = useNavigate();
-
+    const { quizzes } = useContext(QuizContext);
     return (
         <div className='max-w-screen-lg w-11/12 my-0 mx-auto text-center mt-10'>
             <h2 className='text-5xl font-bold'>Quiz Maker</h2>
@@ -15,9 +17,8 @@ const Home = () => {
                     Add Quiz
                 </button>
             </div>
-            <div>
-                <Quizzes />
-            </div>
+
+            <Quizzes quizzes={quizzes} />
         </div>
     );
 };

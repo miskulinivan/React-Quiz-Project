@@ -1,20 +1,19 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
-
+import { useQuizzes } from '../hooks/useQuizzes';
 const Slideshow = () => {
     const { id } = useParams();
     const [currentQuiz, setCurrentQuiz] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
     const [showAnswer, setShowAnswer] = useState(false);
 
+    const { quiz, error } = useQuizzes(id);
+
     useEffect(() => {
-        axios
-            .get(`http://localhost:3000/quizzes/${id}`)
-            .then((res) => setCurrentQuiz(res.data))
-            .catch((err) => console.log(err));
-    }, []);
+        setCurrentQuiz(quiz);
+    }, [quiz]);
 
     const prevIndex = () => {
         const isFirstSlide = currentIndex === 0;
@@ -85,6 +84,7 @@ const Slideshow = () => {
             >
                 <BsChevronCompactRight size={30} />
             </div>
+            <Link to='/'>Home</Link>
         </div>
     );
 };

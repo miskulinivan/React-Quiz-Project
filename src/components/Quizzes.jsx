@@ -1,7 +1,6 @@
 import Quiz from './Quiz';
-import { useQuizzes } from '../hooks/useQuizzes';
-const Quizzes = () => {
-    const { quizzes } = useQuizzes();
+
+const Quizzes = ({ quizzes }) => {
     return (
         <div>
             {quizzes.map((quiz) => (
