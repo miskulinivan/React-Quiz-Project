@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { QuizContext } from '../context/QuizContext';
 
 const Add = () => {
+    const { quizzes } = useContext(QuizContext);
     const { reusableQuestions, setReusableQuestions } = useContext(QuizContext);
     const [quiz, setQuiz] = useState({
         id: 0,
@@ -66,6 +67,12 @@ const Add = () => {
     useEffect(() => {
         console.log('reusable questions', reusableQuestions);
     }, [reusableQuestions]);
+
+    // Create datalist options from reusableQuestions
+    const reusableQuestionsOptions = reusableQuestions.map((question) => (
+        <option key={question.id} value={question.question} />
+    ));
+
     return (
         <div className='mx-auto max-w-md w-11/12'>
             <h1 className='text-2xl font-bold mb-4 p-4'>Add a new quiz</h1>
@@ -89,7 +96,7 @@ const Add = () => {
                     />
                 </div>
                 <div className='border-4 rounded-xl border-gray-700 p-4 mb-4 '>
-                    <div className='mb-4 '>
+                    <div className='mb-4'>
                         <label
                             htmlFor='question'
                             className='block text-gray-700 font-bold mb-2'
@@ -99,6 +106,7 @@ const Add = () => {
                         <input
                             type='text'
                             id='question'
+                            list='questions'
                             value={quiz.questionText}
                             onChange={(e) =>
                                 setQuiz({
@@ -106,9 +114,30 @@ const Add = () => {
                                     questionText: e.target.value,
                                 })
                             }
+                            onBlur={(e) => {
+                                const selectedQuestion = reusableQuestions.find(
+                                    (question) =>
+                                        question.question === e.target.value
+                                );
+                                if (selectedQuestion) {
+                                    setQuiz({
+                                        ...quiz,
+                                        questionText: selectedQuestion.question,
+                                        answerText: selectedQuestion.answer,
+                                    });
+                                }
+                            }}
                             className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                             /*  required */
                         />
+                        <datalist id='questions'>
+                            {reusableQuestions.map((question) => (
+                                <option
+                                    key={question.id}
+                                    value={question.question}
+                                />
+                            ))}
+                        </datalist>
                     </div>
                     <div className='mb-4'>
                         <label
@@ -129,6 +158,7 @@ const Add = () => {
                         />
                     </div>
                 </div>
+
                 <div className='flex justify-between'>
                     <button
                         type='button'
