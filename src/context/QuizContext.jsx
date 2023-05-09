@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuizzes } from '../hooks/useQuizzes';
-
+import Swal from 'sweetalert2';
 export const QuizContext = createContext();
 
 export const QuizProvider = ({ children }) => {
@@ -33,6 +33,7 @@ export const QuizProvider = ({ children }) => {
                 setQuizzes,
                 reusableQuestions,
                 setReusableQuestions,
+                Swal,
             }}
         >
             {children}

@@ -4,20 +4,37 @@ import { useNavigate } from 'react-router-dom';
 import { QuizContext } from '../context/QuizContext';
 
 const Quiz = ({ quiz }) => {
-    const { setQuizzes } = useContext(QuizContext);
+    const { setQuizzes, Swal } = useContext(QuizContext);
     const navigate = useNavigate();
 
     const handleDeleteQuiz = (e, id) => {
         e.stopPropagation();
-        axios
-            .delete(`http://localhost:3000/quizzes/${id}`)
-            .then((res) => {
-                console.log('Deleted sucessfully');
-                setQuizzes((prevQuiz) =>
-                    prevQuiz.filter((quiz) => quiz.id !== id)
-                );
-            })
-            .catch((err) => console.log(err));
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios
+                    .delete(`http://localhost:3000/quizzes/${id}`)
+                    .then((res) => {
+                        console.log('Deleted sucessfully');
+                        setQuizzes((prevQuiz) =>
+                            prevQuiz.filter((quiz) => quiz.id !== id)
+                        );
+                        Swal.fire(
+                            'Deleted!',
+                            'Quiz has been deleted.',
+                            'success'
+                        );
+                    })
+                    .catch((err) => console.log(err));
+            }
+        });
     };
 
     const handleSlideshow = (e, id) => {

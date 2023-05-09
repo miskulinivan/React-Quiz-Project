@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { QuizContext } from '../context/QuizContext';
 import { useQuizzes } from '../hooks/useQuizzes';
 const Edit = () => {
+    const { Swal } = useContext(QuizContext);
     const { id } = useParams();
     const [currentQuiz, setCurrentQuiz] = useState({});
     const navigate = useNavigate();
@@ -21,7 +22,13 @@ const Edit = () => {
             .put(`http://localhost:3000/quizzes/${id}`, currentQuiz)
             .then((res) => {
                 console.log(res.data);
-                alert('Updated sucessfully');
+                Swal.fire({
+                    position: 'top',
+                    icon: 'success',
+                    title: 'Quiz edited!',
+                    showConfirmButton: false,
+                    timer: 1300,
+                });
                 navigate('/');
             })
             .catch((err) => console.log(err));

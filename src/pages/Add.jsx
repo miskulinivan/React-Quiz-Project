@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { QuizContext } from '../context/QuizContext';
 
 const Add = () => {
-    const { quizzes } = useContext(QuizContext);
-    const { reusableQuestions, setReusableQuestions } = useContext(QuizContext);
+    /*  const { quizzes } = useContext(QuizContext); */
+    const [error, setError] = useState(false);
+    const { reusableQuestions, setReusableQuestions, Swal } =
+        useContext(QuizContext);
     const [quiz, setQuiz] = useState({
         id: 0,
         name: '',
@@ -24,21 +26,32 @@ const Add = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios
-            .post('http://localhost:3000/quizzes', newQuiz)
-            .then((res) => {
-                alert('Quiz added!');
-                setQuiz({
-                    id: lastId + 1,
-                    name: '',
-                    questions: [],
-                    questionText: '',
-                    answerText: '',
-                });
-                setLastId(lastId + 1);
-                navigate('/');
-            })
-            .catch((err) => console.log(err));
+        if (quiz.questions.length < 1 || quiz.questions.answerText < 1) {
+            setError(true);
+        } else {
+            axios
+                .post('http://localhost:3000/quizzes', newQuiz)
+                .then((res) => {
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'success',
+                        title: 'Quiz added!',
+                        showConfirmButton: false,
+                        timer: 1300,
+                    });
+                    setQuiz({
+                        id: lastId + 1,
+                        name: '',
+                        questions: [],
+                        questionText: '',
+                        answerText: '',
+                    });
+                    setLastId(lastId + 1);
+
+                    navigate('/');
+                })
+                .catch((err) => console.log(err));
+        }
     };
 
     const handleAddQuestion = (e) => {
@@ -63,15 +76,6 @@ const Add = () => {
             },
         ]);
     };
-
-    useEffect(() => {
-        console.log('reusable questions', reusableQuestions);
-    }, [reusableQuestions]);
-
-    // Create datalist options from reusableQuestions
-    const reusableQuestionsOptions = reusableQuestions.map((question) => (
-        <option key={question.id} value={question.question} />
-    ));
 
     return (
         <div className='mx-auto max-w-md w-11/12'>
@@ -108,12 +112,13 @@ const Add = () => {
                             id='question'
                             list='questions'
                             value={quiz.questionText}
-                            onChange={(e) =>
+                            onChange={(e) => {
                                 setQuiz({
                                     ...quiz,
                                     questionText: e.target.value,
-                                })
-                            }
+                                });
+                                setError(false);
+                            }}
                             onBlur={(e) => {
                                 const selectedQuestion = reusableQuestions.find(
                                     (question) =>
@@ -158,7 +163,13 @@ const Add = () => {
                         />
                     </div>
                 </div>
-
+                <div className='h-[30px]'>
+                    {error && (
+                        <p className='bg-red text-1xl px-4 py-1 text-red-500'>
+                            Fill in the inputs
+                        </p>
+                    )}
+                </div>
                 <div className='flex justify-between'>
                     <button
                         type='button'
