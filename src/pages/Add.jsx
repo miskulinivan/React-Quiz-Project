@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { QuizContext } from '../context/QuizContext';
 
 const Add = () => {
+    const navigate = useNavigate();
     /*  const { quizzes } = useContext(QuizContext); */
     const [error, setError] = useState(false);
     const { reusableQuestions, setReusableQuestions, Swal } =
@@ -16,7 +17,6 @@ const Add = () => {
         answerText: '',
     });
     const [lastId, setLastId] = useState(0);
-    const navigate = useNavigate();
 
     const newQuiz = {
         id: quiz.id,
@@ -138,6 +138,7 @@ const Add = () => {
                         <datalist id='questions'>
                             {reusableQuestions.map((question) => (
                                 <option
+                                    className='p-2 font-xl'
                                     key={question.id}
                                     value={question.question}
                                 />

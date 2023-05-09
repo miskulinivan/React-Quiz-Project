@@ -2,14 +2,14 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
-import { useQuizzes } from '../hooks/useQuizzes';
+import { useGetQuizzes } from '../hooks/useGetQuizzes';
 const Slideshow = () => {
     const { id } = useParams();
     const [currentQuiz, setCurrentQuiz] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
     const [showAnswer, setShowAnswer] = useState(false);
 
-    const { quiz, error } = useQuizzes(id);
+    const { quiz, error } = useGetQuizzes(id);
 
     useEffect(() => {
         setCurrentQuiz(quiz);
@@ -84,7 +84,14 @@ const Slideshow = () => {
             >
                 <BsChevronCompactRight size={30} />
             </div>
-            <Link to='/'>Home</Link>
+            <div className='relative'>
+                <Link
+                    to='/'
+                    className='absolute bottom-5 left-5 justify-start bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                >
+                    Home
+                </Link>
+            </div>
         </div>
     );
 };

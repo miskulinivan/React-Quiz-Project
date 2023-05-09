@@ -44,9 +44,9 @@ const Quiz = ({ quiz }) => {
     return (
         <div
             onClick={() => navigate(`/quizzes/${quiz.id}`)}
-            className='flex justify-between px-10 py-2 items-center border-b-4 border-indigo-500'
+            className='rounded-lg flex justify-between px-10 py-2 items-center border-b-4 border-indigo-500  hover:cursor-pointer hover:shadow-[0px_20px_20px_10px_#00000024] my-4  sm:flex-col'
         >
-            <p className='text-3xl font-bold'>{quiz.name}</p>
+            <p className='text-3xl font-bold sm:mb-2'>{quiz.name}</p>
             <div className='flex justify-center items-center'>
                 <button
                     onClick={(e) => handleSlideshow(e, quiz.id)}

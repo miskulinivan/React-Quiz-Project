@@ -1,11 +1,11 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuizzes } from '../hooks/useQuizzes';
+import { useGetQuizzes } from '../hooks/useGetQuizzes';
 import Swal from 'sweetalert2';
 export const QuizContext = createContext();
 
 export const QuizProvider = ({ children }) => {
-    const { allQuizzes } = useQuizzes();
+    const { allQuizzes } = useGetQuizzes();
     const [quizzes, setQuizzes] = useState([]);
     const [reusableQuestions, setReusableQuestions] = useState([]);
 

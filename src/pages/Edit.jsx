@@ -3,13 +3,13 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { QuizContext } from '../context/QuizContext';
-import { useQuizzes } from '../hooks/useQuizzes';
+import { useGetQuizzes } from '../hooks/useGetQuizzes';
 const Edit = () => {
     const { Swal } = useContext(QuizContext);
     const { id } = useParams();
     const [currentQuiz, setCurrentQuiz] = useState({});
     const navigate = useNavigate();
-    const { quiz, error } = useQuizzes(id);
+    const { quiz, error } = useGetQuizzes(id);
 
     useEffect(() => {
         setCurrentQuiz(quiz);
