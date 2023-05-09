@@ -4,11 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { QuizContext } from '../context/QuizContext';
 
 const Add = () => {
-    const navigate = useNavigate();
-    /*  const { quizzes } = useContext(QuizContext); */
+    const [lastId, setLastId] = useState(0);
     const [error, setError] = useState(false);
+    const navigate = useNavigate();
     const { reusableQuestions, setReusableQuestions, Swal } =
         useContext(QuizContext);
+
     const [quiz, setQuiz] = useState({
         id: 0,
         name: '',
@@ -16,7 +17,6 @@ const Add = () => {
         questionText: '',
         answerText: '',
     });
-    const [lastId, setLastId] = useState(0);
 
     const newQuiz = {
         id: quiz.id,
@@ -49,6 +49,7 @@ const Add = () => {
                     setLastId(lastId + 1);
 
                     navigate('/');
+                    window.location.reload();
                 })
                 .catch((err) => console.log(err));
         }
@@ -77,14 +78,26 @@ const Add = () => {
         ]);
     };
 
+    useEffect(() => {
+        if (error) {
+            const timeout = setTimeout(() => {
+                setError(false);
+            }, 1000);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [error]);
+
     return (
         <div className='mx-auto max-w-md w-11/12'>
-            <h1 className='text-2xl font-bold mb-4 p-4'>Add a new quiz</h1>
+            <h1 className='text-2xl font-bold mb-4 p-4 font-Roboto'>
+                Add a new quiz
+            </h1>
             <form onSubmit={handleSubmit}>
                 <div className='mb-4 p-4'>
                     <label
                         htmlFor='name'
-                        className='block text-gray-700 font-bold mb-2'
+                        className='block text-black font-bold mb-2 font-Roboto'
                     >
                         Quiz name
                     </label>
@@ -95,15 +108,14 @@ const Add = () => {
                         onChange={(e) =>
                             setQuiz({ ...quiz, name: e.target.value })
                         }
-                        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                        /*  required */
+                        className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline font-Roboto'
                     />
                 </div>
-                <div className='border-4 rounded-xl border-gray-700 p-4 mb-4 '>
+                <div className='border-4 rounded-xl border-black p-4 mb-4 '>
                     <div className='mb-4'>
                         <label
                             htmlFor='question'
-                            className='block text-gray-700 font-bold mb-2'
+                            className='block text-black font-bold mb-2 font-Roboto'
                         >
                             Add a question
                         </label>
@@ -132,9 +144,9 @@ const Add = () => {
                                     });
                                 }
                             }}
-                            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                            /*  required */
+                            className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline font-Roboto'
                         />
+
                         <datalist id='questions'>
                             {reusableQuestions.map((question) => (
                                 <option
@@ -148,7 +160,7 @@ const Add = () => {
                     <div className='mb-4'>
                         <label
                             htmlFor='answer'
-                            className='block text-gray-700 font-bold mb-2'
+                            className='block text-black font-bold mb-2 font-Roboto'
                         >
                             Answer
                         </label>
@@ -159,37 +171,34 @@ const Add = () => {
                             onChange={(e) =>
                                 setQuiz({ ...quiz, answerText: e.target.value })
                             }
-                            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                            /*  required */
+                            className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline'
                         />
                     </div>
-                </div>
-                <div className='h-[30px]'>
                     {error && (
-                        <p className='bg-red text-1xl px-4 py-1 text-red-500'>
-                            Fill in the inputs
+                        <p className='bg-red text-1xl pt-2 text-red-primary h-[30px]'>
+                            Please fill in all required fields.
                         </p>
                     )}
                 </div>
-                <div className='flex justify-between'>
+                <div className='flex justify-between  p-4'>
                     <button
                         type='button'
-                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                        className='bg-blue-primary hover:bg-blue-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline font-Roboto'
                         onClick={handleAddQuestion}
                     >
                         Add question
                     </button>
                     <button
                         type='submit'
-                        className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                        className='bg-green-primary hover:bg-green-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline font-Roboto'
                     >
                         Add quiz
                     </button>
                 </div>
             </form>
-            <div className='flex justify-center '>
+            <div className='flex justify-center'>
                 <Link
-                    className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
+                    className='bg-gray-primary hover:bg-gray-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
 '
                     to='/'
                 >

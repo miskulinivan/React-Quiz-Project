@@ -44,19 +44,21 @@ const Quiz = ({ quiz }) => {
     return (
         <div
             onClick={() => navigate(`/quizzes/${quiz.id}`)}
-            className='rounded-lg flex justify-between px-10 py-2 items-center border-b-4 border-indigo-500  hover:cursor-pointer hover:shadow-[0px_20px_20px_10px_#00000024] my-4  sm:flex-col'
+            className='rounded-lg flex justify-between px-10 py-2 items-center border-b-4 border-black hover:cursor-pointer hover:shadow-[0px_20px_20px_10px_#00000024] my-4  md:flex-col'
         >
-            <p className='text-3xl font-bold sm:mb-2'>{quiz.name}</p>
+            <p className='text-3xl font-bold md:mb-2 font-Roboto text-black'>
+                {quiz.name}
+            </p>
             <div className='flex justify-center items-center'>
                 <button
                     onClick={(e) => handleSlideshow(e, quiz.id)}
-                    className='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                    className='text-white bg-blue-primary hover:bg-blue-secondary focus:outline-none focus:ring-4 focus:ring-blue-primary font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-primary dark:hover:bg-blue-primary dark:focus:ring-blue-primary font-Roboto'
                 >
                     Slideshow
                 </button>
                 <button
                     onClick={(e) => handleDeleteQuiz(e, quiz.id)}
-                    className='text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'
+                    className='text-white bg-red-primary hover:bg-red-secondary focus:outline-none focus:ring-4 focus:ring-red-primary font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-primary dark:hover:bg-red-primary dark:focus:ring-red-primary font-Roboto'
                 >
                     Delete
                 </button>

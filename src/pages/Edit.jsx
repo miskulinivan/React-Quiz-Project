@@ -9,7 +9,7 @@ const Edit = () => {
     const { id } = useParams();
     const [currentQuiz, setCurrentQuiz] = useState({});
     const navigate = useNavigate();
-    const { quiz, error } = useGetQuizzes(id);
+    const { quiz } = useGetQuizzes(id);
 
     useEffect(() => {
         setCurrentQuiz(quiz);
@@ -42,7 +42,7 @@ const Edit = () => {
                     <div className='mb-4 p-4'>
                         <label
                             htmlFor='name'
-                            className='block text-gray-700 font-bold mb-2'
+                            className='block text-black font-bold mb-2 font-Roboto'
                         >
                             Quiz name
                         </label>
@@ -53,10 +53,10 @@ const Edit = () => {
                             onChange={(e) =>
                                 setCurrentQuiz({
                                     ...currentQuiz,
-                                    [e.target.id]: e.target.value,
+                                    name: e.target.value,
                                 })
                             }
-                            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                            className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline font-Roboto'
                             /*  required */
                         />
                     </div>
@@ -64,12 +64,12 @@ const Edit = () => {
                         return (
                             <div
                                 key={question.id}
-                                className='border-4 rounded-xl border-gray-700  p-4 mb-4 '
+                                className='border-4 rounded-xl border-black p-4 mb-4 '
                             >
                                 <div className='mb-4'>
                                     <label
                                         htmlFor='question'
-                                        className='block text-gray-700 font-bold mb-2'
+                                        className='block text-black font-bold mb-2 font-Roboto'
                                     >
                                         Edit {index + 1}. question
                                     </label>
@@ -90,14 +90,14 @@ const Edit = () => {
                                                 questions: updatedQuestions,
                                             });
                                         }}
-                                        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                        className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline font-Roboto'
                                         /*  required */
                                     />
                                 </div>
                                 <div className='mb-4'>
                                     <label
                                         htmlFor='answer'
-                                        className='block text-gray-700 font-bold mb-2'
+                                        className='block text-black font-bold mb-2 font-Roboto'
                                     >
                                         Edit {index + 1}. answer
                                     </label>
@@ -118,31 +118,22 @@ const Edit = () => {
                                                 questions: updatedQuestions,
                                             });
                                         }}
-                                        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                                        /*  required */
+                                        className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline font-Roboto'
                                     />
                                 </div>
-                                {/*  <div className='flex justify-between'>
-                                    <button
-                                        type='submit'
-                                        className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-                                    >
-                                        Edit
-                                    </button>
-                                </div> */}
                             </div>
                         );
                     })}
                     <button
                         type='submit'
-                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                        className='bg-blue-primary hover:bg-blue-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
                     >
                         Finish editing
                     </button>
                 </form>
                 <div className='flex justify-center'>
                     <Link
-                        className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
+                        className='bg-gray-base hover:bg-gray-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
 '
                         to='/'
                     >

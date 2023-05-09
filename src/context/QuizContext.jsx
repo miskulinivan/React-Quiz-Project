@@ -10,12 +10,11 @@ export const QuizProvider = ({ children }) => {
     const [reusableQuestions, setReusableQuestions] = useState([]);
 
     useEffect(() => {
-        // Once quizzes has loaded, extract all questions into reusableQuestions
         const allQuestions = quizzes.reduce(
             (acc, quiz) => [...acc, ...quiz.questions],
             []
         );
-        // Use map to assign new IDs to each question
+
         const newQuestions = allQuestions.map((question, index) => ({
             ...question,
             id: index + 1,

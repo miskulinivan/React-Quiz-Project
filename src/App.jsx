@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-import { QuizContext } from './context/QuizContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Edit from './pages/Edit';

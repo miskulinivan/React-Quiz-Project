@@ -2,7 +2,7 @@
   "quizzes": [
     {
       "id": 1,
-      "name": "Test Quiz",
+      "name": "Enterwell Quiz",
       "questions": [
         {
           "id": 1,
@@ -54,12 +54,12 @@
     },
     {
       "id": 3,
-      "name": "123",
+      "name": "1",
       "questions": [
         {
           "id": 1,
-          "question": "11111111111111111",
-          "answer": "11111111111111"
+          "question": "1",
+          "answer": "1"
         }
       ]
     }
