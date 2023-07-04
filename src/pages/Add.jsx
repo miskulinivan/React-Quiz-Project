@@ -26,7 +26,14 @@ const Add = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (quiz.questions.length < 1 || quiz.questions.answerText < 1) {
+        const hasEmptyFields = quiz.questions.some(
+            (question) => question.answer.length < 1
+        );
+        if (
+            quiz.questions.length < 1 ||
+            hasEmptyFields ||
+            quiz.name.trim() === ''
+        ) {
             setError(true);
         } else {
             axios

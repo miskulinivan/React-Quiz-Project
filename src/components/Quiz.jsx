@@ -26,6 +26,7 @@ const Quiz = ({ quiz }) => {
                         setQuizzes((prevQuiz) =>
                             prevQuiz.filter((quiz) => quiz.id !== id)
                         );
+
                         Swal.fire(
                             'Deleted!',
                             'Quiz has been deleted.',

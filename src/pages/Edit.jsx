@@ -7,7 +7,7 @@ import { useGetQuizzes } from '../hooks/useGetQuizzes';
 const Edit = () => {
     const { Swal } = useContext(QuizContext);
     const { id } = useParams();
-    const [currentQuiz, setCurrentQuiz] = useState({});
+    const [currentQuiz, setCurrentQuiz] = useState({ name: '', questions: [] });
     const navigate = useNavigate();
     const { quiz } = useGetQuizzes(id);
 
