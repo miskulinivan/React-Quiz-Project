@@ -1,21 +1,24 @@
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { QuizContext } from '../context/QuizContext';
+
 import { useGetQuizzes } from '../hooks/useGetQuizzes';
+import { IQuiz } from '../types/types';
+import Swal from 'sweetalert2';
 const Edit = () => {
-    const { Swal } = useContext(QuizContext);
-    const { id } = useParams();
-    const [currentQuiz, setCurrentQuiz] = useState({ name: '', questions: [] });
+    const { id } = useParams<{ id: string }>();
+    const [currentQuiz, setCurrentQuiz] = useState<IQuiz | null>(null);
     const navigate = useNavigate();
-    const { quiz } = useGetQuizzes(id);
+    const { quiz } = useGetQuizzes(Number(id));
 
     useEffect(() => {
-        setCurrentQuiz(quiz);
+        if (quiz) {
+            setCurrentQuiz(quiz);
+        }
     }, [quiz]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         axios
@@ -49,18 +52,18 @@ const Edit = () => {
                         <input
                             type='text'
                             id='name'
-                            value={currentQuiz.name}
+                            value={currentQuiz?.name || ''}
                             onChange={(e) =>
-                                setCurrentQuiz({
-                                    ...currentQuiz,
+                                setCurrentQuiz((prevQuiz) => ({
+                                    ...(prevQuiz as IQuiz),
                                     name: e.target.value,
-                                })
+                                }))
                             }
                             className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline font-Roboto'
                             /*  required */
                         />
                     </div>
-                    {currentQuiz.questions?.map((question, index) => {
+                    {currentQuiz?.questions?.map((question, index) => {
                         return (
                             <div
                                 key={question.id}
@@ -79,16 +82,16 @@ const Edit = () => {
                                         value={question.question}
                                         onChange={(e) => {
                                             const updatedQuestions = [
-                                                ...currentQuiz.questions,
+                                                ...(currentQuiz?.questions || []),
                                             ];
                                             updatedQuestions[index] = {
                                                 ...question,
                                                 question: e.target.value,
                                             };
-                                            setCurrentQuiz({
-                                                ...currentQuiz,
+                                            setCurrentQuiz((prevQuiz) => ({
+                                                ...(prevQuiz as IQuiz),
                                                 questions: updatedQuestions,
-                                            });
+                                            }));
                                         }}
                                         className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline font-Roboto'
                                         /*  required */
@@ -107,16 +110,16 @@ const Edit = () => {
                                         value={question.answer}
                                         onChange={(e) => {
                                             const updatedQuestions = [
-                                                ...currentQuiz.questions,
+                                                ...(currentQuiz?.questions || []),
                                             ];
                                             updatedQuestions[index] = {
                                                 ...question,
                                                 answer: e.target.value,
                                             };
-                                            setCurrentQuiz({
-                                                ...currentQuiz,
+                                            setCurrentQuiz((prevQuiz) => ({
+                                                ...(prevQuiz as IQuiz),
                                                 questions: updatedQuestions,
-                                            });
+                                            }));
                                         }}
                                         className='shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline font-Roboto'
                                     />
@@ -133,8 +136,7 @@ const Edit = () => {
                 </form>
                 <div className='flex justify-center'>
                     <Link
-                        className='bg-gray-base hover:bg-gray-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
-'
+                        className='bg-gray-base hover:bg-gray-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
                         to='/'
                     >
                         Home

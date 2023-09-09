@@ -3,28 +3,35 @@ import { Link, useParams } from 'react-router-dom';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 import { useGetQuizzes } from '../hooks/useGetQuizzes';
+import { IQuiz } from '../types/types';
+
 const Slideshow = () => {
     const { id } = useParams();
-    const [currentQuiz, setCurrentQuiz] = useState({});
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [showAnswer, setShowAnswer] = useState(false);
+    const [currentQuiz, setCurrentQuiz] = useState<IQuiz | null>(null);
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [showAnswer, setShowAnswer] = useState<boolean>(false);
 
-    const { quiz } = useGetQuizzes(id);
+    const { quiz } = useGetQuizzes(Number(id));
 
     useEffect(() => {
-        setCurrentQuiz(quiz);
+        if (quiz) {
+            setCurrentQuiz(quiz);
+        }
     }, [quiz]);
 
     const prevIndex = () => {
         const isFirstSlide = currentIndex === 0;
         setCurrentIndex(
-            isFirstSlide ? currentQuiz.questions.length - 1 : currentIndex - 1
+            isFirstSlide
+                ? (currentQuiz?.questions?.length || 0) - 1
+                : currentIndex - 1
         );
         setShowAnswer(false);
     };
 
     const nextIndex = () => {
-        const isLastSlide = currentIndex === currentQuiz.questions.length - 1;
+        const isLastSlide =
+            currentIndex === (currentQuiz?.questions?.length || 0) - 1;
         setCurrentIndex(isLastSlide ? 0 : currentIndex + 1);
         setShowAnswer(false);
     };
@@ -32,7 +39,7 @@ const Slideshow = () => {
     const toggleShowAnswer = () => {
         setShowAnswer(!showAnswer);
     };
-    const goToQuestion = (questionIndex) => {
+    const goToQuestion = (questionIndex: number) => {
         setCurrentIndex(questionIndex);
     };
 
@@ -42,10 +49,10 @@ const Slideshow = () => {
                 <div className='w-full h-full rounded-2xl bg-center bg-cover duration-500 '>
                     <div className='text-center'>
                         <h1 className='text-6xl mt-5 font-Patrick'>
-                            {currentQuiz.name}
+                            {currentQuiz?.name}
                         </h1>
                         <div className='flex justify-center items-center mt-16'>
-                            {currentQuiz.questions && (
+                            {currentQuiz?.questions && (
                                 <div className='text-center'>
                                     <h2 className='text-2xl mt-5'>
                                         {
@@ -74,16 +81,18 @@ const Slideshow = () => {
                     </div>
                 </div>
                 <div className='flex top-4 justify-center py-2'>
-                    {currentQuiz.questions &&
-                        currentQuiz.questions.map((question, questionIndex) => (
-                            <div
-                                key={questionIndex}
-                                onClick={() => goToQuestion(questionIndex)}
-                                className='text-2xl cursor-pointer '
-                            >
-                                <RxDotFilled />
-                            </div>
-                        ))}
+                    {currentQuiz?.questions &&
+                        currentQuiz.questions.map(
+                            (_question, questionIndex) => (
+                                <div
+                                    key={questionIndex}
+                                    onClick={() => goToQuestion(questionIndex)}
+                                    className='text-2xl cursor-pointer '
+                                >
+                                    <RxDotFilled />
+                                </div>
+                            )
+                        )}
                 </div>
             </div>
 

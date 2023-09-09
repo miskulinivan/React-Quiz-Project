@@ -1,19 +1,20 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { QuizContext } from '../context/QuizContext';
 import Quizzes from '../components/Quizzes';
 import { useNavigate } from 'react-router-dom';
 import { useGetQuizzes } from '../hooks/useGetQuizzes';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
+
 const Home = () => {
     const navigate = useNavigate();
-    const { quizzes } = useContext(QuizContext);
-    const { isLoading, error } = useGetQuizzes();
+
+    const { setAllQuizzes } = useContext(QuizContext);
+    const { isLoading, error, allQuizzes } = useGetQuizzes();
+
     return (
         <div className='max-w-screen-lg  w-2/3 my-0 mx-auto text-center mt-10'>
-            <h2 className='text-5xl font-bold text-black font-Patrick'>
-                Quiz Maker
-            </h2>
+            <h2 className='text-5xl font-bold text-black font-Patrick'>Quiz Maker</h2>
             <div className='flex justify-end px-10 py-2 md:justify-center'>
                 <button
                     onClick={() => navigate('/add')}
@@ -27,7 +28,7 @@ const Home = () => {
             ) : isLoading ? (
                 <Loading />
             ) : (
-                <Quizzes quizzes={quizzes} />
+                <Quizzes allQuizzes={allQuizzes} setAllQuizzes={setAllQuizzes} />
             )}
         </div>
     );

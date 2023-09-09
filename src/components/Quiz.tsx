@@ -1,13 +1,17 @@
 import axios from 'axios';
-import { useContext } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { QuizContext } from '../context/QuizContext';
+import { IQuiz } from '../types/types';
+import Swal from 'sweetalert2';
+interface QuizProps {
+    quiz: IQuiz;
+    setAllQuizzes: Dispatch<SetStateAction<IQuiz[]>>;
+}
 
-const Quiz = ({ quiz }) => {
-    const { setQuizzes, Swal } = useContext(QuizContext);
+const Quiz = ({ quiz, setAllQuizzes }: QuizProps) => {
     const navigate = useNavigate();
 
-    const handleDeleteQuiz = (e, id) => {
+    const handleDeleteQuiz = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
         e.stopPropagation();
 
         Swal.fire({
@@ -22,34 +26,29 @@ const Quiz = ({ quiz }) => {
                 axios
                     .delete(`http://localhost:3000/quizzes/${id}`)
                     .then((res) => {
-                        console.log('Deleted sucessfully');
-                        setQuizzes((prevQuiz) =>
-                            prevQuiz.filter((quiz) => quiz.id !== id)
+                        console.log('Deleted successfully', res);
+                        setAllQuizzes((prevQuizzes: IQuiz[]) =>
+                            prevQuizzes.filter((quiz) => quiz.id !== id)
                         );
 
-                        Swal.fire(
-                            'Deleted!',
-                            'Quiz has been deleted.',
-                            'success'
-                        );
+                        Swal.fire('Deleted!', 'Quiz has been deleted.', 'success');
                     })
                     .catch((err) => console.log(err));
             }
         });
     };
 
-    const handleSlideshow = (e, id) => {
+    const handleSlideshow = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
         e.stopPropagation();
         navigate(`/slideshow/quizzes/${id}`);
     };
+
     return (
         <div
             onClick={() => navigate(`/quizzes/${quiz.id}`)}
             className='rounded-lg flex justify-between px-10 py-2 items-center border-b-4 border-black hover:cursor-pointer hover:shadow-[0px_20px_20px_10px_#00000024] my-4  md:flex-col'
         >
-            <p className='text-3xl font-bold md:mb-2 font-Roboto text-black'>
-                {quiz.name}
-            </p>
+            <p className='text-3xl font-bold md:mb-2 font-Roboto text-black'>{quiz.name}</p>
             <div className='flex justify-center items-center'>
                 <button
                     onClick={(e) => handleSlideshow(e, quiz.id)}

@@ -1,4 +1,8 @@
-const Error = ({ errorText }) => {
+interface ErrorProps {
+    errorText: string;
+}
+
+const Error = ({ errorText }: ErrorProps) => {
     return (
         <div className='flex justify-center items-center'>
             <div className='bg-red-500 text-white p-4 rounded-lg  max-w-600'>
